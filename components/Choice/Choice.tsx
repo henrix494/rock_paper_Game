@@ -48,7 +48,7 @@ const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
     } else {
       setGameState(0); // You lose
     }
-  }, [currentPick]);
+  }, [currentPick, cpuChoice]);
 
   return (
     <div className="">
