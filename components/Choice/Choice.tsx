@@ -57,16 +57,31 @@ const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
           {" "}
           <div className="flex flex-col items-center gap-10">
             <p>Your Pick</p>
-            <div className="  bg-[white] px-10 py-10 rounded-full  border-[20px] border-[yellow]">
+            <div className="  bg-[white] px-10 py-10 rounded-full  border-[20px] border-[yellow] max-lg:px-4 max-lg:py-4 max-lg:border-[10px]">
               {" "}
               {currentPick === "rock" && (
-                <Image width={60} src={rock} alt="rock" />
+                <Image
+                  width={60}
+                  src={rock}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
               {currentPick === "papper" && (
-                <Image width={60} src={papper} alt="rock" />
+                <Image
+                  width={60}
+                  src={papper}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
               {currentPick === "misprim" && (
-                <Image width={60} src={misprim} alt="rock" />
+                <Image
+                  width={60}
+                  src={misprim}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
             </div>
           </div>
@@ -84,16 +99,31 @@ const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
           </div>
           <div className="flex flex-col items-center gap-10">
             <p>House Pick</p>
-            <div className="  bg-[white] px-10 py-10 rounded-full  border-[20px] border-[red] cursor-pointer">
+            <div className="  bg-[white] px-10 py-10 rounded-full  border-[20px] border-[red] max-lg:px-4 max-lg:py-4 max-lg:border-[10px]">
               {" "}
               {cpuChoice === "rock" && (
-                <Image width={60} src={rock} alt="rock" />
+                <Image
+                  width={60}
+                  src={rock}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
               {cpuChoice === "papper" && (
-                <Image width={60} src={papper} alt="rock" />
+                <Image
+                  width={60}
+                  src={papper}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
               {cpuChoice === "misprim" && (
-                <Image width={60} src={misprim} alt="rock" />
+                <Image
+                  width={60}
+                  src={misprim}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
               )}
             </div>
           </div>
