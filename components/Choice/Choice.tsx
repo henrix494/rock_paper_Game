@@ -4,21 +4,32 @@ import tri from "../../assets/bg-triangle.svg";
 import rock from "../../assets/icon-rock.svg";
 import papper from "../../assets/icon-paper.svg";
 import misprim from "../../assets/icon-scissors.svg";
+import PostButtun from "../Postbutton/PostButtun";
 import { useState, useEffect } from "react";
 interface ChoiceProps {
   getScoreF: (newScore: number) => void;
+  setbestScore: (setbestScore: number) => void;
+  scoreM: number;
+  bestScore: number;
 }
-const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
+const Choice: React.FC<ChoiceProps> = ({
+  getScoreF,
+  scoreM,
+  setbestScore,
+  bestScore,
+}) => {
   const cpuOptions = ["rock", "papper", "misprim"];
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentPick, setCurrentPick] = useState("s");
   const [cpuChoice, setcpuChoice] = useState("");
   const [gameState, setGameState] = useState(0);
   const [numberOfMoves, setNumberOfMovers] = useState(0);
+  const [name, setName] = useState("");
   const getPlayerChoise = (choice: string) => {
     setCurrentPick(choice);
     setIsPlaying(true);
     setNumberOfMovers((number) => number++);
+
     let randomCPUChoice;
     do {
       randomCPUChoice =
@@ -32,21 +43,33 @@ const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
   const resetGame = () => {
     setIsPlaying(false);
     setGameState(0);
+
     setNumberOfMovers((number) => number++);
+    setCurrentPick("s");
+    setcpuChoice("");
+    if (gameState === 0) {
+      setbestScore(-bestScore);
+    }
   };
 
   useEffect(() => {
     if (currentPick === cpuChoice) {
       setGameState(2); // It's a tie
     } else if (
-      (currentPick === "rock" && cpuChoice === "misprim") ||
-      (currentPick === "papper" && cpuChoice === "rock") ||
-      (currentPick === "misprim" && cpuChoice === "papper")
+      (currentPick === "rock" && cpuChoice === "misprim" && isPlaying) ||
+      (currentPick === "papper" && cpuChoice === "rock" && isPlaying) ||
+      (currentPick === "misprim" && cpuChoice === "papper" && isPlaying)
     ) {
       setGameState(1); // You win
       getScoreF(+1);
-    } else {
+      setbestScore(+1);
+    } else if (
+      (currentPick !== "rock" && cpuChoice !== "misprim" && isPlaying) ||
+      (currentPick !== "papper" && cpuChoice !== "rock" && isPlaying) ||
+      (currentPick !== "misprim" && cpuChoice !== "papper" && isPlaying)
+    ) {
       setGameState(0); // You lose
+      getScoreF(-scoreM);
     }
   }, [currentPick, cpuChoice]);
 
@@ -93,6 +116,20 @@ const Choice: React.FC<ChoiceProps> = ({ getScoreF }) => {
               {gameState === 1 && <p className=" text-3xl">You win</p>}
               {gameState === 0 && <p className=" text-3xl">You lose</p>}
             </div>
+            {gameState === 0 && <div>Best Score {bestScore}</div>}
+            {gameState === 0 && (
+              <input
+                className=" text-[black] p-2 rounded-lg"
+                placeholder="name"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+            )}
+            {gameState === 0 && (
+              <PostButtun bestScore={bestScore} name={name} />
+            )}
+
             <div>
               <button onClick={resetGame}>Play again</button>
             </div>

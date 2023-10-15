@@ -6,7 +6,6 @@ interface ChoiceProps {
   scoreM: number;
 }
 const Score: React.FC<ChoiceProps> = ({ scoreM }) => {
-  const [score, setScore] = useState(0);
   return (
     <div className=" border-2 w-[40vw] max-lg:w-full h-[200px] max-lg:h-[100px]   rounded-xl border-[#ffffff7a] flex items-center justify-between px-10 max-lg:px-0 max-lg:border-0">
       <div>
