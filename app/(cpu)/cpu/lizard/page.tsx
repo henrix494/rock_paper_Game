@@ -2,13 +2,13 @@
 import Link from "next/link";
 
 import React from "react";
-import Score from "@/components/Score/Score";
-import Choice from "@/components/Choice/Choice";
+import ScoreL from "@/components/Lizard/ScoreL/ScoreL";
+import ChoiceL from "@/components/Lizard/ChoiceL/ChoiceL";
 import { useState } from "react";
 import Image from "next/image";
-import rules from "../../../assets/image-rules.svg";
-import close from "../../../assets/icon-close.svg";
-import LeaderBoard from "@/components/LeaderBoard/LeaderBoard";
+import rules from "@/assets/image-rules-bonus.svg";
+import close from "../../../../assets/icon-close.svg";
+import LeaderBoardL from "@/components/Lizard/LeaderBoard/LeaderBoardL";
 export default function Page() {
   const [scoreM, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
@@ -25,7 +25,7 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-gradient-to-t from-[#1f3756] to-[#141539]">
+    <div className="bg-gradient-to-t from-[#1f3756] to-[#141539] ">
       <div className="flex justify-center gap-10 text-white">
         {" "}
         <Link href={"/"}>
@@ -35,11 +35,11 @@ export default function Page() {
         </Link>
         <div>
           {" "}
-          <LeaderBoard />
+          <LeaderBoardL />
         </div>
       </div>
 
-      <div className=" h-screen flex flex-col items-center py-10 gap-32  max-lg:gap-24 relative">
+      <div className=" h-screen flex flex-col items-center py-10 gap-32  max-lg:gap-24 relative max-lg:h-full">
         {clickRule && (
           <div className=" absolute h-full bg-[#00000070] w-full z-20 top-0">
             <div className="flex justify-center items-center h-screen">
@@ -61,9 +61,9 @@ export default function Page() {
           </div>
         )}
 
-        <Score scoreM={scoreM} />
+        <ScoreL scoreM={scoreM} />
 
-        <Choice
+        <ChoiceL
           getScoreF={updateScore}
           setbestScore={setbestScore}
           bestScore={bestScore}

@@ -1,10 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import tri from "../../assets/bg-triangle.svg";
-import rock from "../../assets/icon-rock.svg";
-import papper from "../../assets/icon-paper.svg";
-import misprim from "../../assets/icon-scissors.svg";
-import PostButtun from "../Postbutton/PostButtun";
+import tri from "@/assets/bg-pentagon.svg";
+import rock from "@/assets/icon-rock.svg";
+import papper from "@/assets/icon-paper.svg";
+import misprim from "@/assets/icon-scissors.svg";
+import spock from "@/assets/icon-spock.svg";
+import lizard from "@/assets/icon-lizard.svg";
+import PostButtunL from "../Postbutton/PostButtunL";
 import { useState, useEffect } from "react";
 interface ChoiceProps {
   getScoreF: (newScore: number) => void;
@@ -12,13 +14,13 @@ interface ChoiceProps {
   scoreM: number;
   bestScore: number;
 }
-const Choice: React.FC<ChoiceProps> = ({
+const ChoiceL: React.FC<ChoiceProps> = ({
   getScoreF,
   scoreM,
   setbestScore,
   bestScore,
 }) => {
-  const cpuOptions = ["rock", "papper", "misprim"];
+  const cpuOptions = ["rock", "papper", "misprim", "lizard", "spock"];
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentPick, setCurrentPick] = useState("s");
   const [cpuChoice, setcpuChoice] = useState("");
@@ -57,16 +59,30 @@ const Choice: React.FC<ChoiceProps> = ({
       setGameState(2); // It's a tie
     } else if (
       (currentPick === "rock" && cpuChoice === "misprim" && isPlaying) ||
+      (currentPick === "rock" && cpuChoice === "lizard" && isPlaying) ||
       (currentPick === "papper" && cpuChoice === "rock" && isPlaying) ||
-      (currentPick === "misprim" && cpuChoice === "papper" && isPlaying)
+      (currentPick === "papper" && cpuChoice === "spock" && isPlaying) ||
+      (currentPick === "misprim" && cpuChoice === "papper" && isPlaying) ||
+      (currentPick === "misprim" && cpuChoice === "lizard" && isPlaying) ||
+      (currentPick === "lizard" && cpuChoice === "spock" && isPlaying) ||
+      (currentPick === "lizard" && cpuChoice === "papper" && isPlaying) ||
+      (currentPick === "spock" && cpuChoice === "misprim" && isPlaying) ||
+      (currentPick === "spock" && cpuChoice === "rock" && isPlaying)
     ) {
       setGameState(1); // You win
       getScoreF(+1);
       setbestScore(+1);
     } else if (
       (currentPick !== "rock" && cpuChoice !== "misprim" && isPlaying) ||
+      (currentPick !== "rock" && cpuChoice !== "lizard" && isPlaying) ||
       (currentPick !== "papper" && cpuChoice !== "rock" && isPlaying) ||
-      (currentPick !== "misprim" && cpuChoice !== "papper" && isPlaying)
+      (currentPick !== "papper" && cpuChoice !== "spock" && isPlaying) ||
+      (currentPick !== "misprim" && cpuChoice !== "papper" && isPlaying) ||
+      (currentPick !== "misprim" && cpuChoice !== "lizard" && isPlaying) ||
+      (currentPick !== "lizard" && cpuChoice !== "spock" && isPlaying) ||
+      (currentPick !== "lizard" && cpuChoice !== "papper" && isPlaying) ||
+      (currentPick !== "spock" && cpuChoice !== "misprim" && isPlaying) ||
+      (currentPick !== "spock" && cpuChoice !== "rock" && isPlaying)
     ) {
       setGameState(0); // You lose
       getScoreF(-scoreM);
@@ -74,7 +90,7 @@ const Choice: React.FC<ChoiceProps> = ({
   }, [currentPick, cpuChoice]);
 
   return (
-    <div className="">
+    <div className=" ">
       {isPlaying ? (
         <div className="flex w-screen max-w-[900px] justify-around text-white ">
           {" "}
@@ -106,6 +122,22 @@ const Choice: React.FC<ChoiceProps> = ({
                   className=" max-lg:w-[40px]"
                 />
               )}
+              {currentPick === "lizard" && (
+                <Image
+                  width={60}
+                  src={lizard}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
+              )}
+              {currentPick === "spock" && (
+                <Image
+                  width={60}
+                  src={spock}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
+              )}
             </div>
           </div>
           <div className="flex flex-col items-center justify-center gap-5">
@@ -127,7 +159,7 @@ const Choice: React.FC<ChoiceProps> = ({
               />
             )}
             {gameState === 0 && (
-              <PostButtun bestScore={bestScore} name={name} />
+              <PostButtunL bestScore={bestScore} name={name} />
             )}
 
             <div>
@@ -162,6 +194,22 @@ const Choice: React.FC<ChoiceProps> = ({
                   className=" max-lg:w-[40px]"
                 />
               )}
+              {cpuChoice === "spock" && (
+                <Image
+                  width={60}
+                  src={spock}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
+              )}
+              {cpuChoice === "lizard" && (
+                <Image
+                  width={60}
+                  src={lizard}
+                  alt="rock"
+                  className=" max-lg:w-[40px]"
+                />
+              )}
             </div>
           </div>
         </div>
@@ -169,7 +217,7 @@ const Choice: React.FC<ChoiceProps> = ({
         <div className=" relative">
           <Image src={tri} alt="Follow us on Twitter" />
           <div
-            className=" absolute top-[-22%] left-[-20%]  bg-[white] px-10 py-10 rounded-full  border-[20px] border-[red] cursor-pointer max-lg:px-6 max-lg:py-6 max-lg:border-[10px] max-lg:left-0 max-lg:top-[-14%]"
+            className=" max-lg:top-20 absolute top-[10%] left-[-25%]  bg-[white] px-10 py-10 rounded-full  border-[10px] border-[red] cursor-pointer max-lg:px-6 max-lg:py-6 max-lg:border-[10px] max-lg:left-0 "
             onClick={() => getPlayerChoise("rock")}
           >
             {" "}
@@ -183,7 +231,7 @@ const Choice: React.FC<ChoiceProps> = ({
           </div>
           <div
             onClick={() => getPlayerChoise("papper")}
-            className=" absolute top-[-22%] right-[-20%] max-lg:right-[-5%] max-lg:top-[-15%] bg-[white] px-10 py-10 max-lg:px-4 max-lg:py-4 rounded-full  border-[20px] max-lg:border-[10px] border-[yellow] cursor-pointer"
+            className=" max-lg:top-20  absolute top-[8%] right-[-30%] max-lg:right-[-5%]  bg-[white] px-10 py-10 max-lg:px-4 max-lg:py-4 rounded-full  border-[10px] max-lg:border-[10px] border-[yellow] cursor-pointer"
           >
             {" "}
             <Image
@@ -196,7 +244,7 @@ const Choice: React.FC<ChoiceProps> = ({
           </div>
           <div
             onClick={() => getPlayerChoise("misprim")}
-            className=" absolute bottom-[-35%] right-[20%] bg-[white] px-10 py-10 rounded-full  border-[20px] border-[blue]   cursor-pointer  max-lg:px-6 max-lg:py-6 max-lg:border-[10px] max-lg:right-[32%] max-lg:bottom-[-25%]"
+            className=" max-lg:bottom-[-20%] max-lg:right-0 absolute bottom-[-35%] right-[-23%] bg-[white] px-10 py-10 rounded-full  border-[10px] border-[blue] cursor-pointer  max-lg:px-6 max-lg:py-6 max-lg:border-[10px] "
           >
             {" "}
             <Image
@@ -206,10 +254,36 @@ const Choice: React.FC<ChoiceProps> = ({
               src={misprim}
               alt="rock"
             />
+          </div>{" "}
+          <div
+            onClick={() => getPlayerChoise("lizard")}
+            className=" max-lg:bottom-[-19%] max-lg:left-1 absolute bottom-[-35%] left-[-18%] bg-[white] px-10 py-10 rounded-full  border-[10px] border-[blue] cursor-pointer  max-lg:px-6 max-lg:py-6 max-lg:border-[10px] "
+          >
+            {" "}
+            <Image
+              className=" max-lg:w-[40px]"
+              height={100}
+              width={60}
+              src={lizard}
+              alt="rock"
+            />
+          </div>
+          <div
+            onClick={() => getPlayerChoise("spock")}
+            className=" absolute top-[-35%] left-[28%] max-lg:top-[-20%] max-lg:left-[34%] bg-[white] px-10 py-10 rounded-full  border-[10px] border-[blue] cursor-pointer  max-lg:px-6 max-lg:py-6 max-lg:border-[10px] "
+          >
+            {" "}
+            <Image
+              className=" max-lg:w-[40px]"
+              height={100}
+              width={60}
+              src={spock}
+              alt="rock"
+            />
           </div>
         </div>
       )}
     </div>
   );
 };
-export default Choice;
+export default ChoiceL;
