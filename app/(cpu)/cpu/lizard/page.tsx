@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-
 import React from "react";
 import ScoreL from "@/components/Lizard/ScoreL/ScoreL";
 import ChoiceL from "@/components/Lizard/ChoiceL/ChoiceL";
